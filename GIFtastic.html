@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>The Best Gifs</title>
+</head>
+
+<body>
+  <h1>Your Most Unforgettable/Favorite Toons!</h1>
+  <div id="buttons-view"></div>
+
+  <button cartoon-data="Dragonball z">DBZ!</button>
+  <button cartoon-data="Finn and Jake">Adventure Time</button>
+  <button cartoon-data="Chowder Cartoon">Chowder</button>
+  <button cartoon-data="Flapjack Cartoon">The Misadventures Of Flapjack</button>
+  <button cartoon-data="Dexter's Lab Cartoon">Dexter's Laboratory</button>
+  <button cartoon-data="Regular Show">Regular Show</button>
+  <button cartoon-data="Spongebob Squarepants">Spongebob Squarepants</button>
+  <button cartoon-data="2000's cartoons">AND MORE!</button>
+  <div id="gifs-appear-here"></div>
+
+  <form id="cartoon-form">
+    <label for="cartoon-input"></label>
+    <input type="text" id="cartoon-input">
+    <br>
+
+    <input id="add-cartoon" type="submit" value="CHOOSE YOUR NOSTALGIA!">
+  </form>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    
+
+      $("button").on("click", function () {
+
+        var cartoon = $(this).attr("cartoon-data");
+
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+          cartoon + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+
+          .then(function (response) {
+
+            var results = response.data;
+
+            for (var i = 0; i < results.length; i++) {
+
+              var cartoonDiv = $("<div>");
+
+              var p = $("<p>").text("Rating: " + results[i].rating);
+
+              var cartoonImage = $("<img>");
+
+              cartoonImage.attr("src", results[i].images.fixed_height.url);
+
+
+              cartoonDiv.append(p);
+              cartoonDiv.append(cartoonImage);
+
+              $("#gifs-appear-here").prepend(cartoonDiv);
+            }
+          });
+      });
+    
+    function renderButtons() {
+
+      $("#buttons-view").empty();
+    }
+    $("#add-cartoon").on("click", function (event) {
+      event.preventDefault();
+
+      var movie = $("#cartoon-input").val().trim();
+
+
+      cartoon.push(cartoon);
+
+
+      renderButtons();
+    });
+
+
+    $(document).on("click", ".cartoon-btn");
+
+
+    renderButtons();
+
+
+
+  </script>
+
+</body>
+
+</html>
